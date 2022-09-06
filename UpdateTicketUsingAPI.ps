@@ -15,7 +15,7 @@ If (("${Task}" -ne $null) -and ("${Task}" -ne "") -and ("${RESTURL}" -ne "OFF"))
 	
 	$RESTbody= @{'RequestTask'=
 	           @{
-	            "UpdateAction"=($time+"\The user "+$UserNA+" has been added/removed in "+$BU+" Action :"+$action+" Reference : "+$ticket)
+	            "UpdateAction"=($time+":The user "+$UserNA+" has been added/removed in "+$BU+" Action :"+$action+" Reference : "+$ticket)
 	            "ClosureCode"=("1")
 	            "ClosureComments"=("the user "+$UserNA+" has been added/removed in "+$BU+" Action :"+$action)
 	            }
