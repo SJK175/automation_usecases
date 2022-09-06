@@ -1,0 +1,25 @@
+	
+$BU = "${Business_Unit}"
+$UserNa = "${userDN}"
+$action = "${action}"
+$ticket = "${ticket}"
+	
+		
+If (("${Task}" -ne $null) -and ("${Task}" -ne "") -and ("${RESTURL}" -ne "OFF"))
+	{
+	$Time=Get-Date -UFormat "%d/%m/%Y %T %Z"
+	$url=("${RESTURL}"+"/requesttasks/"+"${Task}"+"/action/update")
+	$SMAPass='${UserPasswordSMA}' | ConvertTo-SecureString -AsPlainText -Force
+	$SMAUser="${UserNameSMA}"
+    $SMACredential=New-Object System.Management.Automation.PSCredential($SMAUser,$SMAPass)
+	
+	$RESTbody= @{'RequestTask'=
+	           @{
+	            "UpdateAction"=($time+"\The user "+$UserNA+" has been added/removed in "+$BU+" Action :"+$action+" Reference : "+$ticket)
+	            "ClosureCode"=("1")
+	            "ClosureComments"=("the user "+$UserNA+" has been added/removed in "+$BU+" Action :"+$action)
+	            }
+				}
+	}
+	Invoke-RestMethod -Method 'Post' -Uri $url -Body ($RESTbody|ConvertTo-Json) -ContentType "application/json" -Credential $SMACredential
+	Throw
